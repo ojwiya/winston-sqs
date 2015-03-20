@@ -11,50 +11,30 @@ function assertSQS (transport) {
 }
 
 var allOptions = {
-    aws_queueurl: "queueurl",
-    aws_accesskeyid: "publickey",
-    aws_secretaccesskey: "secretkey"
+    queueUrl: "queueurl",
+    region: "region"
 };
 
 function without(o, property) { var r = JSON.parse(JSON.stringify(o)); r[property] = undefined; return r; }
 
 vows.describe('winston-sqs').addBatch({
     "Creation of SQS Transport should fail if a required option is missing": {
-        "queueurl": function (){
-            assert.throws(function() {new (SQS)(without(allOptions, "aws_queueurl"));}, Error);
-        },
-        "accessKeyId (and secretAccessKey) (or credentials)": function (){
-            assert.throws(function() {new (SQS)(without(allOptions, "aws_accesskeyid"));}, Error);
-        },
-        "(accessKeyId and) secretAccessKey (or credentials)": function (){
-            assert.throws(function() {new (SQS)(without(allOptions, "aws_secretaccesskey"));}, Error);
-        },
-        "aws_credentials must be aws.Credentials": function (){
-            assert.throws(function() {new (SQS)({
-                aws_queueurl: "queueurl",
-                aws_credentials: "not an aws.Credentials instnace"
-            });}, Error);
+        "queueUrl": function (){
+            assert.throws(function() {new (SQS)(without(allOptions, "queueUrl"));}, Error);
         }
-
     },
     "The creation of an Amazon SQS Transport instance": {
-        "should succeed with aws_accesskeyid and aws_secretaccesskey": function() {
+        "should succeed with queueUrl and region": function() {
             assertSQS(new (SQS)({
-                aws_queueurl: "queueurl",
-                aws_accesskeyid: "publickey",
-                aws_secretaccesskey: "secretkey"
+                queueUrl: "queue url",
+                region: "region"
             }));
         },
-        "should succeed with aws_credentials": function() {
+        "should succeed with sqsOptions": function() {
             assertSQS(new (SQS)({
-                aws_queueurl: "queueurl",
-                aws_credentials: new aws.Credentials("dummy id", "dummy secret")
-            }));
-        },
-        "should succeed with aws_credentials using a subclass": function() {
-            assertSQS(new (SQS)({
-                aws_queueurl: "queueurl",
-                aws_credentials: new aws.EnvironmentCredentials()
+                queueUrl: "queueurl",
+                region: "region",
+                sqsOptions: { options: "options" }
             }));
         }
     },
