@@ -33,7 +33,6 @@ vows.describe('winston-sqs').addBatch({
         "should succeed with sqsOptions": function() {
             assertSQS(new (SQS)({
                 queueUrl: "queueurl",
-                region: "region",
                 sqsOptions: { options: "options" }
             }));
         }

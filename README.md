@@ -16,14 +16,9 @@ The Winston SQS transport depends on [aws-sdk](https://github.com/aws/aws-sdk-js
 
 The constructor options are:
 
-* __aws_accesskeyid:__ Your Amazon Public Key. *[required this or aws_credentials]*
-* __aws_credentials:__ [`AWS.Credentials`][1] instance, f.ex. `AWS.EC2MetadataCredentials`
-  or `AWS.EnvironmentCredentials` *[required this or key+secret]*
-* __aws_maxretries:__ number of times to retry communication with SQS. (default: 3)
-* __aws_queueurl:__ The specific queue URL to write to.  Found in your AWS Console. *[required]*
-* __aws_region:__ AWS Region to use. (default: `us-east-1`)
-* __aws_secretaccesskey:__ Your Amazon Secret. *[required this or aws_credentials]*
-* __aws_sslenabled:__ whether to use SSL in communication with SQS. (default: true)
+* __queueurl:__ The specific queue URL to write to. Found in your AWS Console. [required]
+* __region:__ AWS Region to use. (default: us-east-1) [required if do not pass in sqsOptions]
+* __sqsOptions:__ The sqs options to use. (if passed in, `region` is not required)
 * __colorize:__ Boolean flag indicating if we should colorize output.
 * __debug:__ log error/response after each message sent (default: false)
 * __depth__ Numeric indicating how many times to recurse while formatting the object with `util.inspect` (only used with `prettyPrint: true`) (default null, unlimited)
